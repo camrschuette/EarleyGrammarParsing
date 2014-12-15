@@ -1,0 +1,23 @@
+IF -> \bif\b
+ELSE -> \belse\b
+LP -> \(
+RP -> \)
+LB -> \{
+RB -> \}
+STRING -> \"[^"]*"
+NUM -> \d+
+ID -> \w+
+OP -> \+|-|\*|/|==
+EQ -> =
+SEMI -> ;
+COMMA -> ,
+
+S -> stmt SEMI S | stmt
+stmt -> assign | conditional | func
+assign -> ID EQ expr
+func -> ID LP param-list RP
+param-list -> epsilon | expr param-list'
+param-list' -> COMMA expr param-list' | epsilon
+conditional -> IF LP expr RP LB S RB elseblock
+elseblock -> epsilon | ELSE LB S RB
+expr -> expr OP NUM | NUM | STRING
